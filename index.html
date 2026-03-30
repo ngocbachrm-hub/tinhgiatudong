@@ -2,260 +2,655 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Tính Giá LeoBui — Mobile Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Công cụ tính giá bán lẻ & bán sỉ — LeoBui</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --green:#0F6E56; --green-light:#E1F5EE; --green-dark:#085041; --green-mid:#1D9E75;
-  --blue:#185FA5; --blue-light:#E6F1FB;
-  --red:#A32D2D; --red-light:#FCEBEB;
-  --gray-100:#F1F3F4; --gray-500:#9AA0A6; --gray-900:#202124;
-  --radius-lg:16px; --radius-md:12px;
-  --font:'Be Vietnam Pro', sans-serif;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --green:#0F6E56;--green-light:#E1F5EE;--green-dark:#085041;--green-mid:#1D9E75;
+  --blue:#185FA5;--blue-light:#E6F1FB;--blue-mid:#378ADD;
+  --amber:#854F0B;--amber-light:#FAEEDA;
+  --red:#A32D2D;--red-light:#FCEBEB;
+  --gray-50:#F8F9FA;--gray-100:#F1F3F4;--gray-200:#E8EAED;--gray-300:#DADCE0;
+  --gray-500:#9AA0A6;--gray-700:#5F6368;--gray-900:#202124;
+  --border:rgba(0,0,0,0.1);--border-strong:rgba(0,0,0,0.18);
+  --radius:8px;--radius-lg:12px;--shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --font:'Be Vietnam Pro',sans-serif;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:#F0F4F0;color:var(--gray-900);font-size:13px;min-height:100vh;display:flex;flex-direction:column}
 
-/* TỐI ƯU CƠ BẢN */
-*{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent;}
-body{font-family:var(--font); background:#F4F7F6; color:var(--gray-900); font-size:15px; line-height:1.4;}
+/* HEADER */
+.header{background:var(--green);padding:20px 24px 16px;color:#fff;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06)}
+.header::after{content:'';position:absolute;bottom:-60px;left:30%;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.header h1{font-size:22px;font-weight:700;letter-spacing:-0.3px;margin-bottom:3px}
+.header p{font-size:12px;opacity:.75;font-weight:400}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 10px;font-size:11px;margin-top:8px}
 
-/* HEADER CỐ ĐỊNH (STICKY) */
-.header{background:var(--green); padding:16px; color:#fff; position: sticky; top:0; z-index:100; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
-.header h1{font-size:18px; font-weight:700; text-align:center;}
-.header p{font-size:11px; text-align:center; opacity:0.8;}
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:20px 16px;flex:1;width:100%}
 
-.main{padding:12px; max-width:600px; margin:0 auto;}
+/* CARD */
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card-title{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:6px}
+.card-title .num{width:18px;height:18px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* CARD & FIELD TỐI ƯU CHO TAY CHẠM */
-.card{background:#fff; border-radius:var(--radius-lg); padding:16px; margin-bottom:16px; box-shadow: var(--shadow-sm); border:1px solid rgba(0,0,0,0.05);}
-.card-title{font-size:13px; font-weight:700; color:var(--green); text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:8px;}
-.card-title .num{width:22px; height:22px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px;}
+/* TOGGLE */
+.type-toggle{display:flex;border:1px solid var(--gray-300);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-bottom:14px}
+.type-btn{padding:7px 18px;font-size:12px;border:none;background:transparent;cursor:pointer;color:var(--gray-700);font-family:var(--font);font-weight:500;transition:all .15s}
+.type-btn.active{background:var(--green);color:#fff}
+.type-btn:hover:not(.active){background:var(--gray-100)}
 
-.field{margin-bottom:15px;}
-.field label{display:block; font-size:12px; color:var(--gray-500); margin-bottom:5px; font-weight:500;}
-/* Ô nhập liệu to, cao, dễ bấm trên iPhone */
-.field input, .field select{
-  width:100%; height:48px; padding:0 12px; font-size:16px; /* 16px để iPhone không bị tự động zoom */
-  border:1.5px solid var(--gray-100); border-radius:var(--radius-md); background:#FAFAFA; font-family:var(--font);
+/* QC BOX */
+.qc-box{background:var(--blue-light);border:1px solid #B5D4F4;border-radius:var(--radius);padding:8px 14px;font-size:12px;color:var(--blue);margin-bottom:12px;display:none}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.g5{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px}
+@media(max-width:700px){.g2,.g3,.g4,.g5{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.g2,.g3,.g4,.g5{grid-template-columns:1fr}}
+
+/* FIELD */
+.field{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.field label{font-size:11px;color:var(--gray-700);font-weight:500}
+.field input,.field select{font-size:13px;padding:7px 10px;border:1px solid var(--gray-300);border-radius:var(--radius);background:var(--gray-50);color:var(--gray-900);width:100%;font-family:var(--font);transition:border-color .15s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green-mid);background:#fff;box-shadow:0 0 0 3px rgba(29,158,117,0.1)}
+.ro{background:var(--gray-100)!important;font-weight:600;color:var(--blue)!important}
+
+.divider{border:none;border-top:1px solid var(--gray-200);margin:14px 0}
+
+/* TIER TABLE */
+.tier-hd,.tier-row{display:grid;gap:5px;align-items:center;margin-bottom:5px}
+.ws-cols{grid-template-columns:20px 1fr 58px 58px 68px 54px 96px 24px}
+.rt-cols{grid-template-columns:20px 1fr 68px 68px 110px 96px 24px}
+@media(max-width:800px){
+  .ws-cols,.rt-cols{grid-template-columns:20px 1fr 50px 50px 50px 80px 22px}
 }
-.field input:focus{border-color:var(--green-mid); background:#fff; outline:none;}
-.ro{background:#F1F3F4 !important; font-weight:700; color:var(--blue) !important;}
+.th{font-size:10px;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.tn{font-size:11px;color:var(--gray-500);text-align:center;font-weight:600}
+.ti{font-size:12px;padding:5px 7px;border:1px solid var(--gray-300);border-radius:6px;background:var(--gray-50);color:var(--gray-900);width:100%;font-family:var(--font)}
+.ti:focus{outline:none;border-color:var(--green-mid)}
+.ti-ro{background:var(--gray-100)!important;color:var(--blue);font-weight:600;text-align:right;border-color:var(--gray-200)!important}
+.ti-rog{background:#F0FAF6!important;color:var(--green);font-weight:600;text-align:right;border-color:#9FE1CB!important}
 
-/* TOGGLE TYPE NẰM NGANG ĐẸP */
-.type-toggle{display:grid; grid-template-columns:1fr 1fr; background:var(--gray-100); border-radius:var(--radius-md); padding:4px; margin-bottom:16px;}
-.type-btn{padding:10px; border:none; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; background:transparent; color:var(--gray-500); transition: 0.2s;}
-.type-btn.active{background:#fff; color:var(--green); box-shadow: var(--shadow-sm);}
+.btn-x{width:24px;height:24px;border-radius:6px;border:1px solid var(--gray-300);background:var(--gray-50);cursor:pointer;color:var(--gray-500);font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.btn-x:hover{background:var(--red-light);color:var(--red);border-color:#F09595}
 
-/* PHẦN DÀNH CHO SALES ĐI THỊ TRƯỜNG */
-.metric-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:15px 0;}
-.metric-item{background:var(--blue-light); padding:12px; border-radius:var(--radius-md); text-align:center;}
-.metric-item.green{background:var(--green-light);}
-.metric-lbl{font-size:10px; color:var(--gray-500); text-transform:uppercase; margin-bottom:4px;}
-.metric-val{font-size:18px; font-weight:700; color:var(--blue);}
-.metric-item.green .metric-val{color:var(--green-dark);}
+.add-btn{font-size:11px;padding:5px 14px;border-radius:20px;border:1px dashed var(--gray-300);background:transparent;color:var(--gray-500);cursor:pointer;margin-top:4px;font-family:var(--font);font-weight:500;transition:all .15s}
+.add-btn:hover{border-color:var(--green-mid);color:var(--green)}
 
-/* CẤU TRÚC DÒNG MUA TẶNG (TIER) TRÊN MOBILE */
-.tier-row-mb{background:var(--gray-100); padding:12px; border-radius:var(--radius-md); margin-bottom:10px; position:relative;}
-.tier-grid{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;}
-.btn-delete{position:absolute; top:-5px; right:-5px; width:24px; height:24px; background:var(--red); color:#fff; border-radius:50%; border:none; font-size:14px;}
+/* BEST BOX */
+.best-box{border-radius:var(--radius);padding:8px 12px;font-size:12px;margin-top:8px;display:none;font-weight:400}
+.bws{background:var(--green-light);color:var(--green-dark);border:1px solid #9FE1CB}
+.brt{background:var(--blue-light);color:#0C447C;border:1px solid #B5D4F4}
 
-/* DANH SÁCH SẢN PHẨM KIỂU CARD (THAY CHO TABLE) */
-.product-item{background:#fff; border-radius:var(--radius-lg); padding:15px; margin-bottom:12px; border-left:5px solid var(--green); box-shadow: var(--shadow-sm);}
-.pi-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
-.pi-name{font-size:16px; font-weight:700;}
-.pi-price-row{display:flex; gap:15px; margin-bottom:8px; font-size:13px;}
-.pi-tag{font-size:11px; padding:2px 8px; border-radius:4px; background:var(--gray-100); font-weight:600;}
+/* TRON */
+.tron-section{margin-top:10px;display:none}
+.tron-title{font-size:11px;color:var(--gray-500);font-weight:500;margin-bottom:5px}
+.tron-list{display:flex;flex-direction:column;gap:4px}
+.tron-item{font-size:11px;padding:5px 10px;border-radius:var(--radius)}
+.tron-ok{background:var(--green-light);color:var(--green-dark)}
+.tron-no{background:var(--amber-light);color:var(--amber)}
 
-/* NÚT BẤM CHÍNH */
-.btn-action{width:100%; height:50px; border-radius:var(--radius-md); border:none; font-size:16px; font-weight:700; cursor:pointer; margin-top:10px;}
-.btn-save{background:var(--green); color:#fff;}
-.btn-add{background:#fff; border:1.5px dashed var(--green); color:var(--green); height:40px; font-size:14px;}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+@media(max-width:600px){.metrics{grid-template-columns:1fr}}
+.metric{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:10px 13px}
+.m-lbl{font-size:11px;color:var(--gray-500);font-weight:500;margin-bottom:4px}
+.m-val{font-size:18px;font-weight:700}
+.m-sub{font-size:10px;color:var(--gray-500);margin-top:2px}
+.green{color:var(--green)}.blue{color:var(--blue)}.red{color:var(--red)}
 
-@media (min-width: 601px) {
-  /* Nếu xem trên máy tính vẫn hiện bảng như cũ hoặc căn giữa */
-  .main { max-width: 800px; }
-}
+/* REC BOX */
+.rec-box{border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-top:10px}
+.rec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:1px solid var(--gray-200);flex-wrap:wrap;gap:6px;transition:background .1s}
+.rec-row:last-child{border-bottom:none}
+.rec-row:hover{background:var(--gray-50)}
+.rec-lbl{font-size:12px;color:var(--gray-700)}
+.rec-val{font-size:15px;font-weight:700}
+.rec-input{font-size:13px;padding:5px 9px;border:1px solid var(--gray-300);border-radius:var(--radius);background:#fff;color:var(--gray-900);width:150px;font-family:var(--font);font-weight:500}
+.rec-input:focus{outline:none;border-color:var(--green-mid)}
+.margin-pill{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;min-width:52px;text-align:center}
+
+/* TAGS */
+.tag{font-size:11px;padding:3px 9px;border-radius:20px;display:inline-block;white-space:nowrap;font-weight:500}
+.tg{background:var(--green-light);color:var(--green-dark)}
+.tb{background:var(--blue-light);color:#0C447C}
+.ta{background:var(--amber-light);color:var(--amber)}
+.tr{background:var(--red-light);color:var(--red)}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+
+/* BUTTONS */
+.btn{padding:8px 18px;border-radius:var(--radius);border:1px solid var(--gray-300);background:#fff;color:var(--gray-900);font-size:13px;cursor:pointer;font-family:var(--font);font-weight:500;transition:all .15s}
+.btn:hover{background:var(--gray-100)}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-sm{padding:4px 12px;font-size:11px;border-radius:20px}
+.btn-danger{background:var(--red-light);color:var(--red);border-color:#F09595}
+.btn-danger:hover{background:#F7C1C1}
+.btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.f-msg{font-size:12px;padding:5px 12px;border-radius:var(--radius);display:none}
+.f-msg.ok{background:var(--green-light);color:var(--green-dark);display:block}
+.f-msg.err{background:var(--red-light);color:var(--red);display:block}
+
+/* LIST TABLE */
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.list-title{font-size:15px;font-weight:700}
+.sp-badge{font-size:11px;padding:2px 9px;border-radius:20px;background:var(--gray-100);border:1px solid var(--gray-300);color:var(--gray-700);margin-left:6px;font-weight:500}
+.list-wrap{overflow-x:auto}
+table{width:100%;font-size:11px;border-collapse:collapse;min-width:900px}
+thead tr{background:var(--gray-50)}
+th{color:var(--gray-500);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--gray-200);text-align:left;white-space:nowrap;font-size:10px;text-transform:uppercase;letter-spacing:.3px}
+td{padding:7px 8px;border-bottom:1px solid var(--gray-200);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--gray-50)}
+.bar{height:4px;border-radius:2px;background:var(--gray-200);margin-top:3px}
+.bar-fill{height:100%;border-radius:2px}
+.empty-state{text-align:center;padding:2.5rem;color:var(--gray-500);font-size:13px}
+.empty-state p{margin-top:6px;font-size:12px}
+
+/* FOOTER */
+footer{text-align:center;padding:16px;font-size:11px;color:var(--gray-500);border-top:1px solid var(--gray-200);background:#fff;margin-top:auto}
+footer strong{color:var(--green);font-weight:700}
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-inner">
-    <h1>APP TÍNH GIÁ LEOBUI</h1>
-    <p>Công cụ dành cho Sales & Quản lý thị trường</p>
+    <h1>Công cụ tính giá bán lẻ &amp; bán sỉ</h1>
+    <p>Xây dựng chương trình giá cho sản phẩm nhiều tầng đơn vị</p>
+    <div class="header-badge">Hỗ trợ 2 tầng &amp; 3 tầng · CK nhiều mức · Kiểm tra tròn đơn vị</div>
   </div>
 </div>
 
 <div class="main">
-  <div class="card">
-    <div class="type-toggle">
-        <button class="type-btn active" id="btn-t2" onclick="setType(2)">2 Tầng (Thùng)</button>
-        <button class="type-btn" id="btn-t3" onclick="setType(3)">3 Tầng (TG)</button>
-    </div>
 
-    <div class="field">
-        <label>Tên Sản Phẩm / Mã SP</label>
-        <input id="f-name" type="text" placeholder="Ví dụ: P6000 - Keo Silicone"/>
-    </div>
-
-    <div class="metric-grid">
-        <div class="field">
-            <label>Giá Niêm Yết / ĐV</label>
-            <input id="f-listed" type="number" placeholder="5000" oninput="recalc()">
-        </div>
-        <div class="field">
-            <label id="lbl-qquy-cach">Số ĐV/Thùng</label>
-            <input id="t2-box" type="number" value="24" oninput="recalc()">
-        </div>
-    </div>
-
-    <div class="card-title"><span class="num">S</span> Chương trình Bán Sỉ</div>
-    <div id="ws-rows-container"></div>
-    <button class="btn-action btn-add" onclick="addWsMobile()">+ Thêm mức Mua - Tặng Sỉ</button>
-
-    <hr style="margin:20px 0; opacity:0.1">
-
-    <div class="card-title"><span class="num">L</span> Chương trình Bán Lẻ</div>
-    <div class="metric-grid">
-        <div class="field">
-            <label>Giá Bán Lẻ / ĐV</label>
-            <input id="f-rt-price" type="number" placeholder="6000" oninput="recalc()">
-        </div>
-        <div class="field">
-            <label>CK Bán Lẻ (%)</label>
-            <input id="f-rt-ck" type="number" value="0" oninput="recalc()">
-        </div>
-    </div>
-    <div id="rt-rows-container"></div>
-    <button class="btn-action btn-add" onclick="addRtMobile()">+ Thêm mức Mua - Tặng Lẻ</button>
+<div class="card">
+  <!-- ① Dạng SP -->
+  <div class="card-title"><span class="num">1</span> Dạng sản phẩm</div>
+  <div class="type-toggle">
+    <button class="type-btn active" id="btn-t2" onclick="setType(2)">Chai / Cái → Thùng (2 tầng)</button>
+    <button class="type-btn" id="btn-t3" onclick="setType(3)">ĐV nhỏ → Trung gian → Thùng (3 tầng)</button>
   </div>
 
-  <div id="live-result" class="card" style="display:none; background: var(--green-dark); color:#fff;">
-    <div class="card-title" style="color:#fff">KẾT QUẢ TÍNH TOÁN</div>
-    <div class="metric-grid">
-        <div class="metric-item">
-            <div class="metric-lbl">Net Sỉ Tốt Nhất</div>
-            <div class="metric-val" id="r-ws">0đ</div>
-        </div>
-        <div class="metric-item green">
-            <div class="metric-lbl">Net Lẻ Tốt Nhất</div>
-            <div class="metric-val" id="r-rt">0đ</div>
-        </div>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-        <span id="r-mg" style="font-size:24px; font-weight:800;">0%</span>
-        <p style="font-size:11px; opacity:0.7">Margin (Lẻ vs Sỉ)</p>
+  <!-- ② Thông tin -->
+  <div class="card-title" style="margin-top:4px"><span class="num">2</span> Thông tin &amp; quy cách</div>
+  <div class="g3">
+    <div class="field"><label>Mã / Tên sản phẩm</label><input id="f-name" placeholder="VD: P6000, S-EPOXY..."/></div>
+    <div class="field"><label>Giá niêm yết / <span class="lbl-u1">ĐV nhỏ nhất</span> (đ)</label><input id="f-listed" type="number" placeholder="VD: 5000" step="100"/></div>
+  </div>
+
+  <div id="w-t2">
+    <div class="g3">
+      <div class="field"><label>Đơn vị (<span class="lbl-u1">ĐV nhỏ nhất</span>)</label>
+        <select id="f-u1"><option>Tuýp</option><option>Chai</option><option>Vỉ</option><option>Set</option><option>Cái</option><option>Lon</option></select>
+      </div>
+      <div class="field"><label>Số ĐV / thùng</label><input id="t2-box" type="number" value="24" min="1"/></div>
     </div>
   </div>
 
-  <button class="btn-action btn-save" onclick="saveProduct()">LƯU VÀO DANH SÁCH</button>
+  <div id="w-t3" style="display:none">
+    <div class="g5">
+      <div class="field"><label>Đơn vị nhỏ nhất</label>
+        <select id="f-u1b"><option>Tuýp</option><option>Chai</option><option>Vỉ</option><option>Set</option><option>Cái</option><option>Lon</option></select>
+      </div>
+      <div class="field"><label>Đơn vị trung gian</label>
+        <select id="t3-mid"><option>Vỉ</option><option>Hộp</option><option>Set</option><option>Gói</option></select>
+      </div>
+      <div class="field"><label>Số <span class="lbl-u1">ĐV nhỏ</span> / <span class="lbl-mid">ĐV TG</span></label><input id="t3-pm" type="number" value="12" min="1"/></div>
+      <div class="field"><label>Số <span class="lbl-mid">ĐV TG</span> / thùng</label><input id="t3-mb" type="number" value="50" min="1"/></div>
+      <div class="field"><label>Tổng <span class="lbl-u1">ĐV nhỏ</span> / thùng</label><input id="t3-tot" readonly class="ro"/></div>
+    </div>
+  </div>
+  <div id="qc-box" class="qc-box"></div>
 
-  <div id="product-list-container" style="margin-top:25px;">
-    <div class="card-title" style="color:var(--gray-900)">SẢN PHẨM ĐÃ LƯU (<span id="sp-ct">0</span>)</div>
-    <div id="mobile-list">
+  <div class="divider"></div>
+
+  <!-- ③ Bán sỉ -->
+  <div class="card-title"><span class="num">3</span> Chương trình bán sỉ <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500)">— mỗi mức = 1 combo điều kiện, tự chọn mức net thấp nhất</span></div>
+  <div class="tier-hd ws-cols">
+    <span class="th"></span>
+    <span class="th">Điều kiện</span>
+    <span class="th" style="text-align:center">Mua (<span class="lbl-u1">ĐV</span>)</span>
+    <span class="th" style="text-align:center">Tặng (<span class="lbl-u1">ĐV</span>)</span>
+    <span class="th" style="text-align:center">Tiền tặng (đ)</span>
+    <span class="th" style="text-align:center">CK (%)</span>
+    <span class="th" style="text-align:right">Net / <span class="lbl-u1">ĐV</span></span>
+    <span class="th"></span>
+  </div>
+  <div id="ws-rows"></div>
+  <button class="add-btn" onclick="addWs()">+ Thêm mức bán sỉ</button>
+  <div class="best-box bws" id="bws"></div>
+
+  <div class="divider"></div>
+
+  <!-- ④ Bán lẻ -->
+  <div class="card-title"><span class="num">4</span> Chương trình bán lẻ</div>
+  <div class="g3" style="max-width:560px">
+    <div class="field"><label>Giá bán lẻ / <span class="lbl-u1">ĐV nhỏ nhất</span> (đ)</label><input id="f-rt-price" type="number" placeholder="VD: 6000" step="100"/></div>
+    <div class="field"><label>Chiết khấu bán lẻ (%)</label><input id="f-rt-ck" type="number" value="0" min="0" max="80"/></div>
+    <div class="field"><label>Giá sau CK BL / <span class="lbl-u1">ĐV</span></label><input id="f-rt-after-ck" readonly class="ro"/></div>
+  </div>
+  <div class="tier-hd rt-cols">
+    <span class="th"></span><span class="th">Mô tả / điều kiện</span>
+    <span class="th" style="text-align:center">Mua (ĐV)</span>
+    <span class="th" style="text-align:center">Tặng (ĐV)</span>
+    <span class="th" style="text-align:center">Tầng KM</span>
+    <span class="th" style="text-align:right">Net / <span class="lbl-u1">ĐV</span></span>
+    <span class="th"></span>
+  </div>
+  <div id="rt-rows"></div>
+  <button class="add-btn" onclick="addRt()">+ Thêm mức mua tặng BL</button>
+  <div class="best-box brt" id="brt"></div>
+
+  <div class="tron-section" id="tron-section">
+    <div class="tron-title">Kiểm tra tròn <span class="lbl-mid">ĐV trung gian</span> — tính theo tổng (mua + tặng)</div>
+    <div class="tron-list" id="tron-list"></div>
+  </div>
+
+  <!-- Kết quả -->
+  <div id="live-result" style="display:none">
+    <div class="divider"></div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="m-lbl">Net BS tốt nhất / <span class="lbl-u1">ĐV</span></div>
+        <div class="m-val blue" id="r-ws">—</div>
+        <div class="m-sub" id="r-ws-d">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">Net BL tốt nhất / <span class="lbl-u1">ĐV</span></div>
+        <div class="m-val" id="r-rt">—</div>
+        <div class="m-sub" id="r-rt-d">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">Margin BL vs BS</div>
+        <div class="m-val" id="r-mg">—</div>
+        <div class="m-sub" id="r-mg-d">—</div>
+      </div>
+    </div>
+
+    <div class="card-title" style="margin-top:4px"><span class="num">5</span> Khuyến nghị giá cho cửa hàng</div>
+    <div class="rec-box">
+      <div class="rec-row">
+        <span class="rec-lbl">Giá vốn CH / <span class="lbl-u1">ĐV nhỏ nhất</span> (= net BL)</span>
+        <span class="rec-val blue" id="rc-cost">—</span>
+      </div>
+      <div class="rec-row" id="rc-mid-row">
+        <span class="rec-lbl">Giá vốn CH / <span class="lbl-mid">ĐV trung gian</span></span>
+        <span class="rec-val blue" id="rc-cost-mid">—</span>
+      </div>
+      <div class="rec-row">
+        <span class="rec-lbl">Giá CH nên bán / <span class="lbl-u1">ĐV nhỏ nhất</span></span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input class="rec-input" id="rc-sell-unit" type="number" step="500" placeholder="Nhập giá bán"/>
+          <span class="margin-pill" id="rc-mg-unit" style="background:var(--gray-100);color:var(--gray-500)">—</span>
         </div>
+      </div>
+      <div class="rec-row" id="rc-mid-sell-row">
+        <span class="rec-lbl">Giá CH nên bán / <span class="lbl-mid">ĐV trung gian</span></span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input class="rec-input" id="rc-sell-mid" type="number" step="500" placeholder="Nhập giá bán"/>
+          <span class="margin-pill" id="rc-mg-mid" style="background:var(--gray-100);color:var(--gray-500)">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="tag-row" id="r-tags"></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="saveProduct()">+ Lưu vào danh sách</button>
+    <button class="btn" onclick="clearForm()">Xóa form</button>
+    <span id="f-msg" class="f-msg"></span>
   </div>
 </div>
 
+<!-- DANH SÁCH -->
+<div class="card">
+  <div class="list-header">
+    <div class="list-title">Danh sách sản phẩm <span class="sp-badge" id="sp-ct">0 SP</span></div>
+    <button class="btn btn-danger btn-sm" onclick="clearAll()">Xóa tất cả</button>
+  </div>
+  <div id="lst-empty" class="empty-state">
+    <div style="font-size:32px">📋</div>
+    <p>Chưa có sản phẩm nào. Nhập thông tin ở form trên và bấm "+ Lưu vào danh sách".</p>
+  </div>
+  <div class="list-wrap" id="lst-wrap" style="display:none">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Tên SP</th><th>Quy cách</th><th>Niêm yết/ĐV</th>
+        <th>CT BS tốt nhất</th><th>Net BS/ĐV</th>
+        <th>Giá BL/ĐV</th><th>CK BL</th><th>CT BL tốt nhất</th><th>Net BL/ĐV</th>
+        <th>Margin BL</th><th>Tròn TG</th>
+        <th>Giá CH/ĐV</th><th>Margin CH</th><th>OK?</th><th></th>
+      </tr></thead>
+      <tbody id="lst-body"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<footer>Powered by <strong>LeoBui</strong> &nbsp;·&nbsp; Công cụ tính giá bán lẻ &amp; bán sỉ &nbsp;·&nbsp; <span id="yr"></span></footer>
+
 <script>
-// Giữ nguyên logic gốc của bạn nhưng tối ưu hàm hiển thị
-let spType=2, wsC=0, rtC=0;
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+let spType=2,wsC=0,rtC=0;
 const products=[];
+const fmt=n=>isNaN(n)||!isFinite(n)?'—':Math.round(n).toLocaleString('vi-VN')+'đ';
+const pct=n=>isNaN(n)?'—':(n>=0?'+':'')+n.toFixed(1)+'%';
+function fmtRec(n){if(isNaN(n)||!isFinite(n))return'';return Math.round(n/500)*500}
+
+function u1(){return spType===3?document.getElementById('f-u1b').value:document.getElementById('f-u1').value}
+function uMid(){return spType===3?document.getElementById('t3-mid').value:u1()}
+function perMid(){return spType===3?(parseInt(document.getElementById('t3-pm').value)||12):1}
+function midPerBox(){return spType===3?(parseInt(document.getElementById('t3-mb').value)||50):(parseInt(document.getElementById('t2-box').value)||24)}
+function listed(){return parseFloat(document.getElementById('f-listed').value)||0}
+function rtPrice(){return parseFloat(document.getElementById('f-rt-price').value)||0}
+function rtCk(){return parseFloat(document.getElementById('f-rt-ck').value)||0}
+
+function updateLabels(){
+  const u=u1(),um=uMid();
+  document.querySelectorAll('.lbl-u1').forEach(el=>el.textContent=u);
+  document.querySelectorAll('.lbl-mid').forEach(el=>el.textContent=um);
+  document.querySelectorAll('.rt-tier-sel').forEach(sel=>{
+    const v=sel.value;
+    sel.options[0].text=u+' (nhỏ nhất)';
+    sel.options[1].text=um+' (trung gian)';
+    sel.value=v;
+  });
+}
 
 function setType(t){
-    spType = t;
-    document.getElementById('btn-t2').classList.toggle('active', t===2);
-    document.getElementById('btn-t3').classList.toggle('active', t===3);
-    document.getElementById('lbl-qquy-cach').textContent = t===3 ? "Số ĐV/Trung Gian" : "Số ĐV/Thùng";
-    recalc();
+  spType=t;
+  document.getElementById('btn-t2').classList.toggle('active',t===2);
+  document.getElementById('btn-t3').classList.toggle('active',t===3);
+  document.getElementById('w-t2').style.display=t===2?'block':'none';
+  document.getElementById('w-t3').style.display=t===3?'block':'none';
+  document.getElementById('rc-mid-row').style.display=t===3?'flex':'none';
+  document.getElementById('rc-mid-sell-row').style.display=t===3?'flex':'none';
+  if(t===2)document.getElementById('f-u1').value='Chai';
+  else document.getElementById('f-u1b').value='Tuýp';
+  updateLabels();recalc();
 }
 
-function addWsMobile(){
-    wsC++;
-    const container = document.getElementById('ws-rows-container');
-    const div = document.createElement('div');
-    div.className = 'tier-row-mb';
-    div.id = `ws-row-${wsC}`;
-    div.innerHTML = `
-        <button class="btn-delete" onclick="this.parentElement.remove();recalc();">×</button>
-        <input class="field" style="height:35px; font-size:13px; margin-bottom:8px;" placeholder="Tên mức (VD: Mua 10 tặng 1)" id="wd-ws${wsC}">
-        <div class="tier-grid">
-            <div class="field"><label>Mua</label><input type="number" id="wb-ws${wsC}" oninput="recalc()"></div>
-            <div class="field"><label>Tặng</label><input type="number" id="wg-ws${wsC}" oninput="recalc()"></div>
-            <div class="field"><label>CK%</label><input type="number" id="wk-ws${wsC}" oninput="recalc()"></div>
-        </div>
-    `;
-    container.appendChild(div);
+function addWs(desc='',buy='',gift='',cash='',ckVal=''){
+  wsC++;const id='ws'+wsC;
+  const d=document.createElement('div');
+  d.className='tier-row ws-cols';d.id='wr-'+id;
+  d.innerHTML=`<span class="tn">${wsC}</span>
+    <input class="ti" id="wd-${id}" placeholder="VD: Mua 1 thùng, mua 10 thùng..." value="${desc}"/>
+    <input class="ti" id="wb-${id}" type="number" min="0" placeholder="0" value="${buy}" style="text-align:center"/>
+    <input class="ti" id="wg-${id}" type="number" min="0" placeholder="0" value="${gift}" style="text-align:center"/>
+    <input class="ti" id="wc-${id}" type="number" min="0" placeholder="0" value="${cash}" style="text-align:center"/>
+    <input class="ti" id="wk-${id}" type="number" min="0" max="100" placeholder="0" value="${ckVal}" style="text-align:center"/>
+    <input class="ti ti-ro" id="wn-${id}" readonly/>
+    <button class="btn-x" onclick="rmRow('wr-${id}')">×</button>`;
+  document.getElementById('ws-rows').appendChild(d);
+  ['wb-','wg-','wc-','wk-'].forEach(p=>document.getElementById(p+id).addEventListener('input',recalc));
 }
 
-function addRtMobile(){
-    rtC++;
-    const container = document.getElementById('rt-rows-container');
-    const div = document.createElement('div');
-    div.className = 'tier-row-mb';
-    div.style.background = 'var(--blue-light)';
-    div.id = `rt-row-${rtC}`;
-    div.innerHTML = `
-        <button class="btn-delete" onclick="this.parentElement.remove();recalc();">×</button>
-        <div class="tier-grid">
-            <div class="field"><label>Mua</label><input type="number" id="rb-rt${rtC}" oninput="recalc()"></div>
-            <div class="field"><label>Tặng</label><input type="number" id="rg-rt${rtC}" oninput="recalc()"></div>
-            <div class="field">
-                <label>Đơn vị</label>
-                <select id="rt-rt${rtC}" oninput="recalc()">
-                    <option value="u1">Cái/Chai</option>
-                    <option value="mid">Thùng/TG</option>
-                </select>
-            </div>
-        </div>
-    `;
-    container.appendChild(div);
+function getWsTiers(){
+  const L=listed();
+  return[...document.getElementById('ws-rows').querySelectorAll('.tier-row')].map(row=>{
+    const id=row.id.replace('wr-','');
+    const buy=parseFloat(document.getElementById('wb-'+id).value)||0;
+    const gift=parseFloat(document.getElementById('wg-'+id).value)||0;
+    const cash=parseFloat(document.getElementById('wc-'+id).value)||0;
+    const ckVal=parseFloat(document.getElementById('wk-'+id).value)||0;
+    const desc=document.getElementById('wd-'+id).value;
+    if(!L)return null;
+    const base=L*(1-ckVal/100);
+    let net;
+    if(buy>0&&gift>0&&cash===0) net=base*(buy/(buy+gift));
+    else if(buy>0&&gift===0&&cash>0) net=base-cash/buy;
+    else if(buy>0&&gift>0&&cash>0) net=base*(buy/(buy+gift))-cash/buy;
+    else net=base;
+    document.getElementById('wn-'+id).value=isNaN(net)||!L?'':Math.round(net).toLocaleString('vi-VN')+'đ';
+    return{desc,buy,gift,cash,ck:ckVal,net};
+  }).filter(Boolean);
 }
 
-// Hàm recalc và logic tính toán giữ nguyên như file cũ của bạn 
-// (đã lược bỏ bớt phần render Table để tập trung vào Mobile Card)
+function addRt(desc='',buy='',gift='',tier='u1'){
+  rtC++;const id='rt'+rtC;
+  const d=document.createElement('div');
+  d.className='tier-row rt-cols';d.id='rr-'+id;
+  d.innerHTML=`<span class="tn">${rtC}</span>
+    <input class="ti" id="rd-${id}" placeholder="VD: Mua 8 tuýp tặng 4, mua 3 vỉ tặng 1..." value="${desc}"/>
+    <input class="ti" id="rb-${id}" type="number" min="1" placeholder="Mua" value="${buy}" style="text-align:center"/>
+    <input class="ti" id="rg-${id}" type="number" min="0" placeholder="0" value="${gift}" style="text-align:center"/>
+    <select class="ti rt-tier-sel" id="rt-${id}">
+      <option value="u1" ${tier==='u1'?'selected':''}>${u1()} (nhỏ nhất)</option>
+      <option value="mid" ${tier==='mid'?'selected':''}>${uMid()} (trung gian)</option>
+    </select>
+    <input class="ti ti-rog" id="rn-${id}" readonly/>
+    <button class="btn-x" onclick="rmRow('rr-${id}')">×</button>`;
+  document.getElementById('rt-rows').appendChild(d);
+  ['rb-','rg-','rt-'].forEach(p=>document.getElementById(p+id).addEventListener('input',recalc));
+}
+
+function getRtTiers(){
+  const rp=rtPrice(),afterRtCk=rp*(1-rtCk()/100),pm=perMid();
+  return[...document.getElementById('rt-rows').querySelectorAll('.tier-row')].map(row=>{
+    const id=row.id.replace('rr-','');
+    const buy=parseFloat(document.getElementById('rb-'+id).value)||0;
+    const gift=parseFloat(document.getElementById('rg-'+id).value)||0;
+    const tierType=document.getElementById('rt-'+id).value;
+    const desc=document.getElementById('rd-'+id).value;
+    if(!buy||!rp)return null;
+    const buyU=tierType==='mid'?buy*pm:buy;
+    const giftU=tierType==='mid'?gift*pm:gift;
+    const totalU=buyU+giftU;
+    const net=afterRtCk*(buyU/(buyU+giftU));
+    const tronMid=pm>1?(totalU%pm===0):true;
+    const soTG=tronMid&&pm>1?totalU/pm:null;
+    document.getElementById('rn-'+id).value=isNaN(net)?'':Math.round(net).toLocaleString('vi-VN')+'đ';
+    return{desc,buy,gift,tierType,buyU,giftU,totalU,net,tronMid,soTG};
+  }).filter(Boolean);
+}
+
+function getBest(arr,key){return arr.length?arr.reduce((b,t)=>t[key]<b[key]?t:b):null}
+function rmRow(id){const el=document.getElementById(id);if(el)el.remove();recalc()}
+
+function updateMarginPill(elId,sellPrice,costPrice){
+  const el=document.getElementById(elId);
+  if(!sellPrice||!costPrice||isNaN(sellPrice)||isNaN(costPrice)){
+    el.textContent='—';el.style.background='var(--gray-100)';el.style.color='var(--gray-500)';return;
+  }
+  const m=(sellPrice-costPrice)/sellPrice*100;
+  el.textContent=(m>=0?'+':'')+m.toFixed(1)+'%';
+  el.style.background=m>0?'var(--green-light)':'var(--red-light)';
+  el.style.color=m>0?'var(--green-dark)':'var(--red)';
+}
 
 function recalc(){
-    const L = parseFloat(document.getElementById('f-listed').value) || 0;
-    const rp = parseFloat(document.getElementById('f-rt-price').value) || 0;
-    
-    if(L > 0 && rp > 0){
-        document.getElementById('live-result').style.display = 'block';
-        // Các logic tính net sỉ/lẻ ở đây...
-        // Tạm thời hiển thị demo logic chính:
-        document.getElementById('r-ws').textContent = L.toLocaleString() + 'đ';
-        document.getElementById('r-rt').textContent = rp.toLocaleString() + 'đ';
-        let mg = ((rp - L)/rp * 100).toFixed(1);
-        document.getElementById('r-mg').textContent = mg + '%';
+  updateLabels();
+  const L=listed(),pm=perMid(),mb=midPerBox(),u=u1(),um=uMid();
+  const rp=rtPrice(),rtCkVal=rtCk(),afterRtCk=rp*(1-rtCkVal/100);
+
+  if(spType===3&&L){
+    const tot=pm*mb;
+    document.getElementById('t3-tot').value=tot+' '+u.toLowerCase()+'/thùng';
+    document.getElementById('qc-box').style.display='block';
+    document.getElementById('qc-box').innerHTML=`<strong>Quy cách:</strong> 1 ${um} = ${pm} ${u.toLowerCase()} &nbsp;·&nbsp; 1 thùng = ${mb} ${um.toLowerCase()} = ${tot} ${u.toLowerCase()}`;
+  } else document.getElementById('qc-box').style.display='none';
+
+  const wsTiers=getWsTiers(),bestWs=getBest(wsTiers,'net');
+  const wsNet=bestWs?bestWs.net:NaN;
+  const bwsEl=document.getElementById('bws');
+  if(bestWs){
+    bwsEl.style.display='block';
+    const parts=[];
+    if(bestWs.ck>0)parts.push(`CK ${bestWs.ck}%`);
+    if(bestWs.buy>0&&bestWs.gift>0)parts.push(`mua ${bestWs.buy} tặng ${bestWs.gift} ${u.toLowerCase()}`);
+    if(bestWs.cash>0)parts.push(`tặng thêm ${bestWs.cash.toLocaleString('vi-VN')}đ`);
+    bwsEl.innerHTML=`Mức tốt nhất: <strong>${bestWs.desc||parts.join(' + ')}</strong> → Net BS: <strong>${fmt(wsNet)}</strong> / ${u}`;
+  } else bwsEl.style.display='none';
+
+  document.getElementById('f-rt-after-ck').value=rp?Math.round(afterRtCk).toLocaleString('vi-VN')+'đ':'';
+
+  const rtTiers=getRtTiers(),bestRt=getBest(rtTiers,'net');
+  const rtNet=bestRt?bestRt.net:(rp?afterRtCk:NaN);
+  const brtEl=document.getElementById('brt');
+  if(bestRt){
+    const tLabel=bestRt.tierType==='mid'?`${bestRt.buy} ${um} tặng ${bestRt.gift} ${um}`:`${bestRt.buy} ${u} tặng ${bestRt.gift} ${u}`;
+    brtEl.style.display='block';
+    brtEl.innerHTML=`Net BL tốt nhất: <strong>${bestRt.desc||'Mua '+tLabel}</strong> → <strong>${fmt(rtNet)}</strong> / ${u}`;
+  } else if(rp){
+    brtEl.style.display='block';
+    brtEl.innerHTML=`Không có mua tặng BL. Giá sau CK: <strong>${fmt(afterRtCk)}</strong> / ${u}`;
+  } else brtEl.style.display='none';
+
+  // Tròn TG
+  const tronSec=document.getElementById('tron-section');
+  if(spType===3&&pm>1&&rtTiers.length){
+    tronSec.style.display='block';
+    document.getElementById('tron-list').innerHTML=rtTiers.map(t=>{
+      const lbl=t.tierType==='mid'?`Mua ${t.buy} ${um} tặng ${t.gift} ${um}`:`Mua ${t.buy} ${u} tặng ${t.gift} ${u}`;
+      return t.tronMid
+        ?`<div class="tron-item tron-ok">${lbl} → Tổng ${t.totalU} ${u.toLowerCase()} = <strong>${t.soTG} ${um.toLowerCase()}</strong> tròn ✓</div>`
+        :`<div class="tron-item tron-no">${lbl} → Tổng ${t.totalU} ${u.toLowerCase()} — thiếu ${pm-(t.totalU%pm)} ${u.toLowerCase()} nữa mới tròn ${um.toLowerCase()}</div>`;
+    }).join('');
+  } else tronSec.style.display='none';
+
+  if(!L||!rp){document.getElementById('live-result').style.display='none';return}
+  document.getElementById('live-result').style.display='block';
+
+  const margin=!isNaN(wsNet)?(rtNet-wsNet)/wsNet*100:NaN;
+  const isOk=!isNaN(wsNet)&&rtNet>wsNet;
+  document.getElementById('r-ws').textContent=fmt(wsNet);
+  document.getElementById('r-ws-d').textContent=bestWs?(bestWs.desc||''):'Chưa có mức BS';
+  document.getElementById('r-rt').textContent=fmt(rtNet);
+  document.getElementById('r-rt').className='m-val '+(isOk?'green':'red');
+  document.getElementById('r-rt-d').textContent=bestRt?(bestRt.desc||''):`CK BL ${rtCkVal}%`;
+  document.getElementById('r-mg').textContent=pct(margin);
+  document.getElementById('r-mg').className='m-val '+(isOk?'green':'red');
+  document.getElementById('r-mg-d').textContent=isOk?`BL cao hơn BS ${fmt(rtNet-wsNet)}/ĐV`:(isNaN(wsNet)?'Chưa có mức BS':'⚠ Cần tăng giá BL');
+
+  // Rec CH
+  document.getElementById('rc-cost').textContent=fmt(rtNet);
+  document.getElementById('rc-cost-mid').textContent=spType===3?fmt(rtNet*pm):'—';
+
+  const sellUnitEl=document.getElementById('rc-sell-unit');
+  const sellMidEl=document.getElementById('rc-sell-mid');
+  if(!sellUnitEl.dataset.userEdited){
+    const def=fmtRec(rp);
+    sellUnitEl.value=def||'';
+    if(spType===3)sellMidEl.value=def?(def*pm)||'':'';
+  }
+  const sellUnit=parseFloat(sellUnitEl.value)||0;
+  const sellMid=parseFloat(sellMidEl.value)||0;
+  updateMarginPill('rc-mg-unit',sellUnit,rtNet);
+  if(spType===3)updateMarginPill('rc-mg-mid',sellMid,rtNet*pm);
+
+  document.getElementById('r-tags').innerHTML=`
+    <span class="tag tb">Net BS: ${fmt(wsNet)}/${u.toLowerCase()}</span>
+    <span class="tag ${isOk?'tg':'tr'}">Net BL: ${fmt(rtNet)}/${u.toLowerCase()}</span>
+    <span class="tag ${isOk?'tg':'tr'}">${isOk?'Margin +'+margin.toFixed(1)+'%':'BL thấp hơn BS — cần điều chỉnh'}</span>
+  `;
+}
+
+['rc-sell-unit','rc-sell-mid'].forEach(id=>{
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{el.dataset.userEdited='1';recalc()});
+  },100);
+});
+
+['f-listed','f-rt-price','f-rt-ck','f-u1','f-u1b','t3-mid','t3-pm','t3-mb','t2-box']
+  .forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{
+    if(id==='f-rt-price'){
+      ['rc-sell-unit','rc-sell-mid'].forEach(x=>{const e=document.getElementById(x);if(e)delete e.dataset.userEdited;});
     }
+    recalc();
+  })});
+
+function showMsg(m,type){
+  const el=document.getElementById('f-msg');
+  el.textContent=m;el.className='f-msg '+type;
+  setTimeout(()=>{el.className='f-msg';el.textContent=''},2500);
 }
 
 function saveProduct(){
-    const name = document.getElementById('f-name').value || "Sản phẩm mới";
-    const L = document.getElementById('f-listed').value;
-    const rp = document.getElementById('f-rt-price').value;
-    
-    const list = document.getElementById('mobile-list');
-    const card = document.createElement('div');
-    card.className = 'product-item';
-    card.innerHTML = `
-        <div class="pi-header">
-            <div class="pi-name">${name}</div>
-            <div class="pi-tag">Mới</div>
-        </div>
-        <div class="pi-price-row">
-            <div>Sỉ: <strong style="color:var(--blue)">${parseInt(L).toLocaleString()}đ</strong></div>
-            <div>Lẻ: <strong style="color:var(--green)">${parseInt(rp).toLocaleString()}đ</strong></div>
-        </div>
-        <div style="font-size:12px; color:var(--gray-500)">
-            Margin: <strong>${((rp-L)/rp*100).toFixed(1)}%</strong>
-        </div>
-    `;
-    list.prepend(card);
-    document.getElementById('sp-ct').textContent = list.children.length;
+  const name=document.getElementById('f-name').value.trim();
+  if(!name)return showMsg('Vui lòng nhập tên sản phẩm','err');
+  if(!listed())return showMsg('Vui lòng nhập giá niêm yết','err');
+  if(!rtPrice())return showMsg('Vui lòng nhập giá bán lẻ','err');
+  const wsTiers=getWsTiers(),bestWs=getBest(wsTiers,'net');
+  const rtTiers=getRtTiers(),bestRt=getBest(rtTiers,'net');
+  const rtCkVal=rtCk(),afterRtCk=rtPrice()*(1-rtCkVal/100);
+  const wsNet=bestWs?bestWs.net:NaN;
+  const rtNet=bestRt?bestRt.net:afterRtCk;
+  const wsDesc=bestWs?(bestWs.desc||`Mua ${bestWs.buy} tặng ${bestWs.gift}, CK ${bestWs.ck}%`):'—';
+  const rtDesc=bestRt?(bestRt.desc||''):`CK BL ${rtCkVal}%`;
+  const margin=!isNaN(wsNet)?(rtNet-wsNet)/wsNet*100:NaN;
+  const isOk=!isNaN(wsNet)&&rtNet>wsNet;
+  const pm=perMid(),u=u1(),um=uMid();
+  const sellUnit=parseFloat(document.getElementById('rc-sell-unit').value)||0;
+  const chMargin=sellUnit>0?((sellUnit-rtNet)/sellUnit*100):NaN;
+  products.push({name,listed:listed(),u,um,pm,midPerBox:midPerBox(),spType,
+    wsNet,wsDesc,rtPrice:rtPrice(),rtCkVal,rtNet,rtDesc,
+    rtTronMid:bestRt?bestRt.tronMid:true,margin,isOk,sellUnit,chMargin});
+  renderList();
+  showMsg('Đã lưu: '+name,'ok');
 }
-</script>
 
+function removeProduct(i){products.splice(i,1);renderList()}
+function clearAll(){if(products.length&&!confirm('Xóa tất cả sản phẩm?'))return;products.length=0;renderList()}
+
+function clearForm(){
+  ['f-name','f-listed','f-rt-price'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-rt-ck').value='0';
+  ['ws-rows','rt-rows'].forEach(id=>document.getElementById(id).innerHTML='');
+  wsC=0;rtC=0;
+  document.getElementById('live-result').style.display='none';
+  document.getElementById('tron-section').style.display='none';
+  ['bws','brt'].forEach(id=>document.getElementById(id).style.display='none');
+  ['rc-sell-unit','rc-sell-mid'].forEach(id=>{const e=document.getElementById(id);if(e){e.value='';delete e.dataset.userEdited;}});
+  document.getElementById('qc-box').style.display='none';
+}
+
+function renderList(){
+  document.getElementById('sp-ct').textContent=products.length+' SP';
+  const empty=document.getElementById('lst-empty'),wrap=document.getElementById('lst-wrap');
+  if(!products.length){empty.style.display='block';wrap.style.display='none';return}
+  empty.style.display='none';wrap.style.display='block';
+  const tbody=document.getElementById('lst-body');tbody.innerHTML='';
+  products.forEach((p,i)=>{
+    const mw=Math.min(Math.max(p.margin,0),60)/60*100;
+    const qc=p.spType===3?`1 ${p.um}=${p.pm} ${p.u} · ${p.midPerBox} ${p.um}/thùng`:`${p.midPerBox} ${p.u}/thùng`;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="color:var(--gray-500);font-weight:600">${i+1}</td>
+      <td style="font-weight:600">${p.name}</td>
+      <td style="font-size:10px;color:var(--gray-500)">${qc}</td>
+      <td style="font-weight:500">${fmt(p.listed)}</td>
+      <td style="font-size:11px;max-width:120px;white-space:normal;color:var(--gray-700)">${p.wsDesc}</td>
+      <td style="color:var(--blue);font-weight:700">${fmt(p.wsNet)}</td>
+      <td style="font-weight:500">${fmt(p.rtPrice)}</td>
+      <td>${p.rtCkVal}%</td>
+      <td style="font-size:11px;max-width:110px;white-space:normal;color:var(--gray-700)">${p.rtDesc}</td>
+      <td style="color:${p.isOk?'var(--green)':'var(--red)'};font-weight:700">${fmt(p.rtNet)}</td>
+      <td>
+        <div style="color:${p.isOk?'var(--green)':'var(--red)'};font-weight:700">${pct(p.margin)}</div>
+        <div class="bar"><div class="bar-fill" style="width:${mw}%;background:${p.isOk?'var(--green-mid)':'var(--red)'}"></div></div>
+      </td>
+      <td><span class="tag ${p.spType===3?(p.rtTronMid?'tg':'ta'):'tb'}" style="font-size:10px">${p.spType===3?(p.rtTronMid?'Tròn '+p.um:'Không tròn '+p.um):'N/A'}</span></td>
+      <td style="color:var(--green);font-weight:700">${p.sellUnit?p.sellUnit.toLocaleString('vi-VN')+'đ':'—'}</td>
+      <td><span style="font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;background:${!isNaN(p.chMargin)&&p.chMargin>0?'var(--green-light)':'var(--red-light)'};color:${!isNaN(p.chMargin)&&p.chMargin>0?'var(--green-dark)':'var(--red)'}">${pct(p.chMargin)}</span></td>
+      <td><span class="tag ${p.isOk?'tg':'tr'}" style="font-size:10px">${p.isOk?'Hợp lệ':'Cần sửa'}</span></td>
+      <td><button class="btn btn-danger btn-sm" onclick="removeProduct(${i})">Xóa</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Khởi động
+setType(2);
+</script>
 </body>
 </html>

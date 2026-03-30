@@ -336,6 +336,44 @@ footer strong{color:var(--green);font-weight:700}
   .main{padding:8px 6px}
   .card{padding:10px 10px}
 }
+
+/* TIER LABEL WRAP — hiển thị label trên mobile */
+.ti-wrap{display:contents}
+.ti-lbl{display:none;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px}
+
+@media(max-width:900px){
+  .tier-row.ws-cols,
+  .tier-row.rt-cols{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    border:1px solid var(--gray-200);
+    border-radius:var(--radius);
+    padding:12px 12px 12px 12px;
+    background:#fff;
+    margin-bottom:10px;
+    position:relative;
+    padding-right:44px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  }
+  .tier-hd.ws-cols,.tier-hd.rt-cols{display:none}
+  .tier-row.ws-cols .tn,
+  .tier-row.rt-cols .tn{display:none}
+  .tier-row.ws-cols .btn-x,
+  .tier-row.rt-cols .btn-x{
+    position:absolute;top:12px;right:10px;
+    width:28px;height:28px;font-size:16px;
+  }
+  .ti-wrap{display:flex;flex-direction:column;gap:3px;width:100%}
+  .ti-lbl{display:block}
+  .ti-wrap .ti{width:100%}
+  /* Grid 2 cột cho các ô số nhỏ */
+  .tier-row.ws-cols .ti-wrap:nth-child(n+3):nth-child(-n+7),
+  .tier-row.rt-cols .ti-wrap:nth-child(n+3):nth-child(-n+6){
+    /* để full width, dễ chạm */
+  }
+}
+
 </style>
 </head>
 <body>
@@ -564,12 +602,12 @@ function addWs(desc='',buy='',gift='',cash='',ckVal=''){
   const d=document.createElement('div');
   d.className='tier-row ws-cols';d.id='wr-'+id;
   d.innerHTML=`<span class="tn">${wsC}</span>
-    <input class="ti" id="wd-${id}" placeholder="VD: Mua 1 thùng, mua 10 thùng..." value="${desc}"/>
-    <input class="ti" id="wb-${id}" type="number" min="0" placeholder="0" value="${buy}" style="text-align:center"/>
-    <input class="ti" id="wg-${id}" type="number" min="0" placeholder="0" value="${gift}" style="text-align:center"/>
-    <input class="ti" id="wc-${id}" type="number" min="0" placeholder="0" value="${cash}" style="text-align:center"/>
-    <input class="ti" id="wk-${id}" type="number" min="0" max="100" placeholder="0" value="${ckVal}" style="text-align:center"/>
-    <input class="ti ti-ro" id="wn-${id}" readonly/>
+    <div class="ti-wrap"><label class="ti-lbl">Điều kiện</label><input class="ti" id="wd-${id}" placeholder="VD: Mua 1 thùng, mua 10 thùng..." value="${desc}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Mua (số ĐV)</label><input class="ti" id="wb-${id}" type="number" min="0" placeholder="0" value="${buy}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Tặng (số ĐV)</label><input class="ti" id="wg-${id}" type="number" min="0" placeholder="0" value="${gift}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Tiền tặng (đ)</label><input class="ti" id="wc-${id}" type="number" min="0" placeholder="0" value="${cash}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Chiết khấu (%)</label><input class="ti" id="wk-${id}" type="number" min="0" max="100" placeholder="0" value="${ckVal}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Giá net / ĐV (tự tính)</label><input class="ti ti-ro" id="wn-${id}" readonly/></div>
     <button class="btn-x" onclick="rmRow('wr-${id}')">×</button>`;
   document.getElementById('ws-rows').appendChild(d);
   ['wb-','wg-','wc-','wk-'].forEach(p=>document.getElementById(p+id).addEventListener('input',recalc));
@@ -601,14 +639,14 @@ function addRt(desc='',buy='',gift='',tier='u1'){
   const d=document.createElement('div');
   d.className='tier-row rt-cols';d.id='rr-'+id;
   d.innerHTML=`<span class="tn">${rtC}</span>
-    <input class="ti" id="rd-${id}" placeholder="VD: Mua 8 tuýp tặng 4, mua 3 vỉ tặng 1..." value="${desc}"/>
-    <input class="ti" id="rb-${id}" type="number" min="1" placeholder="Mua" value="${buy}" style="text-align:center"/>
-    <input class="ti" id="rg-${id}" type="number" min="0" placeholder="0" value="${gift}" style="text-align:center"/>
-    <select class="ti rt-tier-sel" id="rt-${id}">
+    <div class="ti-wrap"><label class="ti-lbl">Điều kiện bán lẻ</label><input class="ti" id="rd-${id}" placeholder="VD: Mua 8 tuýp tặng 4, mua 3 vỉ tặng 1..." value="${desc}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Mua (số ĐV)</label><input class="ti" id="rb-${id}" type="number" min="1" placeholder="Mua" value="${buy}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Tặng (số ĐV)</label><input class="ti" id="rg-${id}" type="number" min="0" placeholder="0" value="${gift}"/></div>
+    <div class="ti-wrap"><label class="ti-lbl">Tầng khuyến mãi</label><select class="ti rt-tier-sel" id="rt-${id}">
       <option value="u1" ${tier==='u1'?'selected':''}>${u1()} (nhỏ nhất)</option>
       <option value="mid" ${tier==='mid'?'selected':''}>${uMid()} (trung gian)</option>
-    </select>
-    <input class="ti ti-rog" id="rn-${id}" readonly/>
+    </select></div>
+    <div class="ti-wrap"><label class="ti-lbl">Giá net / ĐV (tự tính)</label><input class="ti ti-rog" id="rn-${id}" readonly/></div>
     <button class="btn-x" onclick="rmRow('rr-${id}')">×</button>`;
   document.getElementById('rt-rows').appendChild(d);
   ['rb-','rg-','rt-'].forEach(p=>document.getElementById(p+id).addEventListener('input',recalc));
